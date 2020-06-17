@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { AttachSession } from 'protractor/built/driverProviders';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-post-create',
-  templateUrl: './post-create.component.html'
+  templateUrl: './post-create.component.html',
+  styleUrls: ['./post-create-component.css']
 })
 
 export class PostCreateComponent{
