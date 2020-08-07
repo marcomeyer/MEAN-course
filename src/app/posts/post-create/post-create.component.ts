@@ -9,11 +9,11 @@ import { style } from '@angular/animations';
 })
 
 export class PostCreateComponent{
-  enteredValue = ""
-  newPost="NO CONTENT"
+  enteredValue = 'a';
+  newPost = 'NO CONTENT';
 
   onAddPost()
   {
-    this.newPost = this.enteredValue
+    this.newPost = this.enteredValue;
   }
 }
