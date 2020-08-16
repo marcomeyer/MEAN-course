@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const Post = require('./models/post');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
@@ -13,7 +14,11 @@ app.use((req, res, next) => {
 });
 
 app.post('/api/posts',(req, res) => {
-    const post = req.body;
+    const post = new Post({
+      title: req.body.title,
+      content: req.body.content,
+    });
+
     console.log(post);
     res.status(201).json(
         {
