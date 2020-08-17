@@ -54,7 +54,11 @@ export class PostsService {
       this.http
         .delete(this.url + '/' + id)
         .subscribe((result: {message} ) => {
-          console.log('Deleted! ' + result.message);
+          const updatedPosts = this.posts.filter(post => post.id !== id);
+          this.posts = updatedPosts;
+          this.postsUpdated.next([...this.posts]);
+
+          console.log('Deleted: ' + result.message);
         });
     }
 }
