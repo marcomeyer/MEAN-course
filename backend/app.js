@@ -40,8 +40,7 @@ app.post('/api/posts',(req, res) => {
     );
 });
 
-app.use('/api/posts',(req, res) => {
-
+app.get('/api/posts',(req, res) => {
   Post
     .find()
     .then(docs => {
