@@ -55,6 +55,15 @@ export class PostsService {
             });
     }
 
+    updatePost(id: string, title: string, content: string) {
+      const post: Post = {id, title, content};
+      this.http
+          .put(this.url + '/' + id, post)
+          .subscribe((responseData) => {
+              console.log(responseData);
+          });
+    }
+
     deletePost(id: string) {
       this.http
         .delete(this.url + '/' + id)
