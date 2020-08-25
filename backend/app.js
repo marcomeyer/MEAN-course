@@ -25,6 +25,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(postsRoutes);
+app.use('/api/posts', postsRoutes);
+
+app.use('/',(req, res) => {
+  res.send('<a href="/api/posts">API here</a>');
+});
 
 module.exports = app;
