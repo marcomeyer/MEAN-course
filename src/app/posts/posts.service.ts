@@ -39,7 +39,7 @@ export class PostsService {
     }
 
     getPost(id: string) {
-      return {...this.posts.find(p => p.id === id)};
+      return this.http.get<{_id: string, title: string, content: string}>(`${this.url}/${id}`);
     }
 
     addPost(title: string, content: string) {
@@ -59,8 +59,11 @@ export class PostsService {
       const post: Post = {id, title, content};
       this.http
           .put(this.url + '/' + id, post)
-          .subscribe((responseData) => {
-              console.log(responseData);
+          .subscribe(response => {
+              const updatedPosts = [...this.posts];
+              const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+              updatedPosts[oldPostIndex] = post;
+              this.postsUpdated.next([...this.posts]);
           });
     }
 
