@@ -44,18 +44,23 @@ export class PostsService {
       return this.http.get<{_id: string, title: string, content: string}>(`${this.url}/${id}`);
     }
 
-    addPost(title: string, content: string) {
-        const post: Post = {id: null, title, content};
-        this.http
-            .post<{ message: string, id: string }>(this.url, post)
-            .subscribe((responseData) => {
-                console.log(responseData.message);
-                const id = responseData.id;
-                post.id = id;
-                this.posts.push(post);
-                this.postsUpdated.next([...this.posts]);
-                this.router.navigate(['/']);
-            });
+    addPost(title: string, content: string, image: File) {
+      const postData = new FormData();
+      postData.append('title', title);
+      postData.append('content', content);
+      postData.append('image', image, title);
+
+      this.http
+          .post<{ message: string, postId: string }>(this.url, postData)
+          .subscribe((responseData) => {
+              const post: Post = { id: responseData.postId, title: title, content: content };
+
+              const id = responseData.postId;
+              post.id = id;
+              this.posts.push(post);
+              this.postsUpdated.next([...this.posts]);
+              this.router.navigate(['/']);
+          });
     }
 
     updatePost(id: string, title: string, content: string) {

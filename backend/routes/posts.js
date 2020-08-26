@@ -38,7 +38,7 @@ router.get('',(req, res) => {
     });
 });
 
-router.post('', multer(storage).single('image'), (req, res) => {
+router.post('', multer({storage: storage}).single('image'), (req, res) => {
   const post = new Post({
     title: req.body.title,
     content: req.body.content,
