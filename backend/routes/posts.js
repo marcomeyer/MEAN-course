@@ -6,8 +6,8 @@ const Post = require('../models/post');
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
-  'image/jpeg': 'jng',
-  'image/jpg': 'jng',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg',
 };
 
 const storage = multer.diskStorage({
