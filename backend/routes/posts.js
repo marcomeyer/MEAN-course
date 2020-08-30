@@ -40,11 +40,19 @@ router.get('',(req, res) => {
       .limit(pageSize);
   }
 
+  let fetchedPosts;
+
   postQuery
-    .then(docs => {
+    .then(documents => {
+      fetchedPosts = documents;
+      return Post.count();
+    })
+    .then(count => {
       res.status(200).json({
         message: 'Posts fetched successfully',
-        posts: docs});
+        posts: fetchedPosts,
+        maxPosts: count
+      });
     });
 });
 

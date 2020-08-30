@@ -11,7 +11,7 @@ export class PostsService {
     private url = 'http://localhost:3000/api/posts';
 
     private posts: Post[] = [];
-    private postsUpdated = new Subject<Post[]>();
+    private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
 
     constructor(
         private http: HttpClient,
@@ -22,20 +22,26 @@ export class PostsService {
       const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
 
       this.http
-        .get<{message: string, posts: any}>(this.url + queryParams)
+        .get<{message: string, posts: any, maxPosts: number}>(this.url + queryParams)
         .pipe(map(postData => {
-          return postData.posts.map(post => {
+          return { posts: postData.posts.map(post => {
             return {
               title: post.title,
               content: post.content,
               id: post._id,
               imagePath: post.imagePath
             };
-          });
+          }),
+          maxPosts: postData.maxPosts
+        };
         }))
-        .subscribe((tranformedPosts) => {
-          this.posts = tranformedPosts;
-          this.postsUpdated.next([...this.posts]);
+        .subscribe((tranformedPostData) => {
+          this.posts = tranformedPostData.posts;
+
+          this.postsUpdated.next({
+            posts: [...this.posts],
+            postCount: tranformedPostData.maxPosts
+          });
         });
     }
 
