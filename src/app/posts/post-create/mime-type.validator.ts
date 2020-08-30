@@ -7,6 +7,7 @@ export const mimeType = (
   if (typeof(control.value) === 'string') {
     return of(null);
   }
+
   const file = control.value as File;
   const fileReader = new FileReader();
   const frObs = Observable.create(
