@@ -62,8 +62,6 @@ export class PostsService {
       this.http
           .post<{ message: string, post: Post }>(this.url, postData)
           .subscribe((responseData) => {
-              this.posts.push(responseData.post);
-              this.postsUpdated.next([...this.posts]);
               this.router.navigate(['/']);
           });
     }
@@ -84,12 +82,6 @@ export class PostsService {
       this.http
           .put(this.url + '/' + id, postData)
           .subscribe(response => {
-              const updatedPosts = [...this.posts];
-              const oldPostIndex = updatedPosts.findIndex(p => p.id === id);
-              const post: Post = {id, title, content, imagePath: '' };
-
-              updatedPosts[oldPostIndex] = post;
-              this.postsUpdated.next([...this.posts]);
               this.router.navigate(['/']);
           });
     }
