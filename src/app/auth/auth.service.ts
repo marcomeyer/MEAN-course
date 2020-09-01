@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { AuthData } from './auth-data-model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
 
-  private url = 'http://localhost:3000/api/user';
+  private url = environment.apiUrl + '/user';
 
   private isAuthenticated = false;
 
