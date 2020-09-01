@@ -20,7 +20,7 @@ exports.createUser = (req, res, next) => {
         })
         .catch(error => {
           res.status(500).json({
-            message: "Invalid authentication credentials!"
+            message: "Invalid signup credentials!"
           })
         });
     });
