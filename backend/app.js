@@ -5,11 +5,12 @@ const mongoose = require('mongoose');
 
 const postsRoutes = require('./routes/posts');
 const userRoutes = require('./routes/user');
+const { env } = require('process');
 
 const app = express();
 
 mongoose
-  .connect('mongodb+srv://marco:<password>@cluster0.hmuxl.mongodb.net/node-angular?retryWrites=true&w=majority')
+  .connect('mongodb+srv://marco:' + env.MONGO_ATLAS_PW + '@cluster0.hmuxl.mongodb.net/node-angular?retryWrites=true&w=majority')
   .then(() => {
     console.log('Connected to database!');
   })
